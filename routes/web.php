@@ -10,6 +10,11 @@ URL::forceScheme('https');
 | contains the "web" middleware group. Now create something great!
 |
 */
+/**
+ * get 表示,そのURLにアクセス
+ * post,put,delete submit処理
+ *
+ */
 
 Route::get('/', 'WebController@index');
 

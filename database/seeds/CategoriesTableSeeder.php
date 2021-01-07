@@ -12,7 +12,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-                $major_category_names = [
+        $major_category_names = [
             '本', 'コンピュータ', 'ディスプレイ'
         ];
 
@@ -23,11 +23,11 @@ class CategoriesTableSeeder extends Seeder
         ];
 
         $computer_categories = [
-            'ノートPC', 'デスクトップPC', 'タブレット' 
+            'ノートPC', 'デスクトップPC', 'タブレット'
         ];
 
         $display_categories = [
-            '19~20インチ', 'デスクトップPC', 'タブレット' 
+            '19~20インチ', 'デスクトップPC', 'タブレット'
         ];
 
         foreach ($major_category_names as $major_category_name) {
