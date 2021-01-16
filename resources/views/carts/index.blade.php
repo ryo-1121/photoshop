@@ -24,7 +24,7 @@
             @foreach ($cart as $product)
             <div class="col-md-2 mt-2">
                 <a href="{{route('products.show', $product->id)}}">
-                    <img src="{{ asset('img/dummy.png')}}" class="img-fuild w-100">
+                    <img src="{{ asset('storage/products/'.$product->options->image) }}" class="w-100 img-fluid">
                 </a>
             </div>
             <div class="col-md-6 mt-4">
@@ -40,7 +40,7 @@
                 <h3 class="w-100 mt-4">￥{{$product->qty * ($product->price + env('CARRIAGE'))}}</h3>
                 @endif
             </div>
-            @endforeach            
+            @endforeach
         </div>
 
         <hr>
@@ -66,7 +66,7 @@
                 買い物を続ける
             </a>
             <div class="btn samazon-submit-button" data-toggle="modal" data-target="#buy-confirm-modal">購入を確定する</div>
- 
+
             <div class="modal fade" id="buy-confirm-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

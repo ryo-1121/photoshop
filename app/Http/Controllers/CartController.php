@@ -22,9 +22,9 @@ class CartController extends Controller
 
         foreach ($cart as $c) {
             if($c->options->carriage) {
-                $total  = ($c->qty * ($c->price + env('CARRIAGE')));
+                $total += ($c->qty * ($c->price + env('CARRIAGE')));
             } else {
-                $total  = $c->qty * $c->price;
+                $total += $c->qty * $c->price;
             }
         }
 
@@ -41,15 +41,16 @@ class CartController extends Controller
     {
         Cart::instance(Auth::user()->id)->add(
             [
-                'id' => $request->_token, 
-                'name' => $request->name, 
-                'qty' => $request->qty, 
-                'price' => $request->price, 
-                'weight' => $request->weight, 
+                'id' => $request->id,
+                'name' => $request->name,
+                'qty' => $request->qty,
+                'price' => $request->price,
+                'weight' => $request->weight,
                 'options' => [
-                    'carriage' => $request->carriage
+                    'carriage' => $request->carriage,
+                    'image'   => $request->image
                 ]
-            ] 
+            ]
         );
 
         return redirect()->route('products.show', $request->get('id'));
@@ -97,45 +98,45 @@ class CartController extends Controller
     {
         $user_shoppingcarts = DB::table('shoppingcart')->get();
         $number = DB::table('shoppingcart')->where('instance', Auth::user()->id)->count();
- 
+
         $count = $user_shoppingcarts->count();
- 
-        $count  = 1;
-        $number  = 1;
+
+        $count += 1;
+        $number += 1;
         $cart = Cart::instance(Auth::user()->id)->content();
- 
+
         $price_total = 0;
         $qty_total = 0;
- 
+
         foreach ($cart as $c) {
             if ($c->options->carriage) {
-                $price_total  = ($c->qty * ($c->price + 800));
+                $price_total += ($c->qty * ($c->price + 800));
             } else {
-                $price_total  = $c->qty * $c->price;
+                $price_total += $c->qty * $c->price;
             }
-            $qty_total  = $c->qty;
+            $qty_total = $c->qty;
         }
- 
+
         Cart::instance(Auth::user()->id)->store($count);
- 
+
         DB::table('shoppingcart')->where('instance', Auth::user()->id)
                                  ->where('number', null)
                                  ->update(
                                      [
                                          'code' => substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz'), 0, 10),
-                                         'number' => $number, 
+                                         'number' => $number,
                                          'price_total' => $price_total,
                                          'qty' => $qty_total,
-                                         'buy_flag' => true, 
+                                         'buy_flag' => true,
                                          'updated_at' => date("Y/m/d H:i:s")
                                      ]
                                  );
 
         $pay_jp_secret = env('PAYJP_SECRET_KEY');
         \Payjp\Payjp::setApiKey($pay_jp_secret);
- 
+
         $user = Auth::user();
- 
+
         $res = \Payjp\Charge::create(
             [
                 "customer" => $user->token,
@@ -145,7 +146,7 @@ class CartController extends Controller
         );
 
         Cart::instance(Auth::user()->id)->destroy();
- 
+
         return redirect()->route('carts.index');
     }
 }

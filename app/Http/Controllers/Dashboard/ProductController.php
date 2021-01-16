@@ -6,6 +6,7 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
@@ -19,13 +20,13 @@ class ProductController extends Controller
     {
           $sort_query = [];
           $sorted = "";
- 
+
           if ($request->sort !== null) {
               $slices = explode(' ', $request->sort);
               $sort_query[$slices[0]] = $slices[1];
               $sorted = $request->sort;
           }
- 
+
           if ($request->keyword !== null) {
               $keyword = rtrim($request->keyword);
               $total_count = Product::where('name', 'like', "%{$keyword}%")->orwhere('id', "{$keyword}")->count();
@@ -35,14 +36,14 @@ class ProductController extends Controller
               $total_count = Product::count();
               $products = Product::paginate(15);
           }
- 
+
           $sort = [
               '価格の安い順' => 'price asc',
               '価格の高い順' => 'price desc',
               '出品の古い順' => 'updated_at asc',
               '出品の新しい順' => 'updated_at desc'
           ];
- 
+
           return view('dashboard.products.index', compact('products', 'sort', 'sorted', 'total_count', 'keyword'));
 
     }
@@ -55,7 +56,7 @@ class ProductController extends Controller
     public function create()
     {
           $categories = Category::all();
- 
+
           return view('dashboard.products.create', compact('categories'));
     }
 
@@ -77,8 +78,22 @@ class ProductController extends Controller
             } else {
                 $product->recommend_flag = false;
             }
+
           if ($request->file('image') !== null) {
-              $image = $request->file('image')->store('public/;products');
+              $image = $request->file('image')->store('public/products');
+              // TODO
+              // 生画像
+            //   $image = $request->file('image')->store('download/products');
+            //   // サンプル画像の生成
+            //   $card_img = Image::make('download/products/'.$image)->crop(300, 300);
+            //   $card_img ->text('sample', 284, 100, function($font) {
+            //     $font->file('fonts/SawarabiGothic-Regular.ttf');
+            //     $font->size(30);
+            //     $font->align('center');
+            //     $font->color('#ffffff');
+            //   });
+            //   $card_img->save('public/products/'.$image);
+
               $product->image = basename($image);
           } else {
               $product->image = '';
@@ -89,7 +104,7 @@ class ProductController extends Controller
             $product->carriage_flag = false;
         }
         $product->save();
- 
+
           return redirect()->route('dashboard.products.index');
     }
 
@@ -113,7 +128,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
           $categories = Category::all();
- 
+
           return view('dashboard.products.edit', compact('product', 'categories'));
     }
 
@@ -147,7 +162,7 @@ class ProductController extends Controller
             $product->carriage_flag = false;
         }
           $product->update();
- 
+
           return redirect()->route('dashboard.products.index');
     }
 
@@ -160,7 +175,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
           $product->delete();
- 
+
           return redirect()->route('dashboard.products.index');
     }
 }

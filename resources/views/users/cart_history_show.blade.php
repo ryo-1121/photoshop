@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <span>
-                <a href="{{ route('mypage') }}">マイページ</a> > <a href="{{ route('mypage.cart_history') }}">注文履歴</a> > お届け先変更
+                <a href="{{ route('mypage') }}">マイページ</a> > <a href="{{ route('mypage.cart_history') }}">注文履歴</a> > 注文履歴詳細
             </span>
 
             <h1 class="mt-3">注文履歴詳細</h1>
@@ -56,10 +56,15 @@
         <div class="row">
             @foreach ($cart_contents as $product)
             <div class="col-md-5 mt-2">
-                <a href="{{route('products.show', $product->id)}}" class="ml-4">
-                    <img src="{{ asset('img/dummy.png')}}" class="img-fuild w-75">
+                <a href="{{ asset('storage/products/'.$product->image) }}" class="ml-4" download>
+                    <img src="{{ asset('storage/products/'.$product->image) }}" class="img-fuild w-75">
+                    <p>クリックでダウンロード</p>
                 </a>
             </div>
+            <form action="{{ url('user/download2') }}" method="post"  >
+                @csrf
+                <input type="submit" >
+            </form>
             <div class="col-md-7 mt-2">
                 <div class="flex-cloumn">
                     <p class="mt-4">{{$product->name}}</p>
@@ -108,4 +113,4 @@
     </div>
 </div>
 
-@endsection 
+@endsection

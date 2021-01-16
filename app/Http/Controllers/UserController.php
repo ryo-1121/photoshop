@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Product;
-  use App\ShoppingCart;
-  use Gloudemans\Shoppingcart\Facades\Cart;
-  use Illuminate\Support\Facades\DB;
-  use Illuminate\Pagination\LengthAwarePaginator;
+use App\ShoppingCart;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -53,19 +54,19 @@ class UserController extends Controller
 
         return redirect()->route('mypage');
     }
-    
+
     public function edit_address()
     {
         $user = Auth::user();
 
         return view('users.edit_address', compact('user'));
     }
-    
+
     public function edit_password()
     {
         return view('users.edit_password');
     }
-    
+
     public function update_password(Request $request)
     {
         $user = Auth::user();
@@ -79,7 +80,7 @@ class UserController extends Controller
 
         return redirect()->route('mypage');
     }
-    
+
     public function favorite()
     {
         $user = Auth::user();
@@ -88,21 +89,21 @@ class UserController extends Controller
 
         return view('users.favorite', compact('favorites'));
     }
-    
+
     public function destroy(Request $request)
     {
         $user = Auth::user();
-         
+
         if ($user->deleted_flag) {
             $user->deleted_flag = false;
         } else {
             $user->deleted_flag = true;
         }
- 
+
         $user->update();
- 
+
         Auth::logout();
- 
+
         return redirect('/');
     }
 
@@ -113,7 +114,7 @@ class UserController extends Controller
           $billings = ShoppingCart::getCurrentUserOrders($user_id);
           $total = count($billings);
           $paginator = new LengthAwarePaginator(array_slice($billings, ($page - 1), 15), $total, 15, $page, ['path' => 'dashboard']);
- 
+
           return view('users.cart_history_index', compact('billings', 'total', 'paginator'));
       }
 
@@ -121,66 +122,66 @@ class UserController extends Controller
     {
         $num = $request->num;
         $user_id = Auth::user()->id;
- 
+
         $cart_info = DB::table('shoppingcart')->where('instance', $user_id)->where('number', $num)->get()->first();
- 
+
         Cart::instance($user_id)->restore($num);
- 
+
         $cart_contents = Cart::content();
- 
+
         Cart::instance($user_id)->store($num);
- 
+
         Cart::destroy();
- 
+
         DB::table('shoppingcart')->where('instance', $user_id)
                                  ->where('number', null)
                                  ->update(
                                      [
                                          'code' => $cart_info->code,
-                                         'number' => $num, 
+                                         'number' => $num,
                                          'price_total' => $cart_info->price_total,
                                          'qty' => $cart_info->qty,
-                                         'buy_flag' => $cart_info->buy_flag, 
+                                         'buy_flag' => $cart_info->buy_flag,
                                          'updated_at' => $cart_info->updated_at
                                      ]
                                  );
- 
+
         return view('users.cart_history_show', compact('cart_contents', 'cart_info'));
     }
 
     public function register_card(Request $request)
     {
         $user = Auth::user();
- 
+
         $pay_jp_secret = env('PAYJP_SECRET_KEY');
         \Payjp\Payjp::setApiKey($pay_jp_secret);
- 
+
         $card = [];
         $count = 0;
- 
+
         if ($user->token != "") {
             $result = \Payjp\Customer::retrieve($user->token)->cards->all(array("limit"=>1))->data[0];
             $count = \Payjp\Customer::retrieve($user->token)->cards->all()->count;
- 
+
             $card = [
                 'brand' => $result["brand"],
                 'exp_month' => $result["exp_month"],
                 'exp_year' => $result["exp_year"],
-                'last4' => $result["last4"] 
+                'last4' => $result["last4"]
             ];
         }
- 
+
         return view('users.register_card', compact('card', 'count'));
     }
- 
+
     public function token(Request $request)
     {
         $pay_jp_secret = env('PAYJP_SECRET_KEY');
         \Payjp\Payjp::setApiKey($pay_jp_secret);
- 
+
         $user = Auth::user();
         $customer = $user->token;
- 
+
         if ($customer != "") {
             $cu = \Payjp\Customer::retrieve($customer);
             $delete_card = $cu->cards->retrieve($cu->cards->data[0]["id"]);
@@ -195,7 +196,71 @@ class UserController extends Controller
             $user->token = $cu->id;
             $user->update();
         }
- 
+
         return redirect()->route('mypage');
+    }
+
+    public function download1()
+    {
+        return view('sample.download');
+    }
+
+    public function download2(Request $request, Response $response)
+    {
+        $this->sendHeader($response, 'sample.txt', 'text/plain');
+
+        for ($row = 0; $row < 100; $row++) {
+
+            $line = '';
+            for ($col = 0; $col < 10; $col++) {
+                $line .= $col;
+                $line .= "\t";
+            }
+            $line .= "\n";
+
+            $this->sendContentBody($line);
+
+        }
+
+        $this->sendContentEnd();
+
+        exit;
+    }
+
+    private function sendHeader($response, $fileName, $mimeType){
+
+        $response->setProtocolVersion('1.1');
+        $response->headers->replace([
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            'Transfer-Encoding' => 'chunked'
+        ]);
+        $response->sendHeaders();
+
+        ob_flush();
+        flush();
+
+    }
+
+    private function sendContentBody($line){
+
+        echo dechex(strlen($line));
+        echo "\r\n";
+        echo $line;
+        echo "\r\n";
+
+        ob_flush();
+        flush();
+    }
+
+    private function sendContentEnd(){
+
+        echo '0';
+        echo "\r\n";
+        echo "\r\n";
+
+        ob_flush();
+        flush();
+
     }
 }

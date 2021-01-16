@@ -34,7 +34,39 @@
                 <div class="col-3">
                     <a href="{{route('products.show', $product)}}">
                         @if ($product->image !== "")
-                        <img src="{{ asset('storage/products/'.$product->image) }}" class="img-thumbnail">
+                        <!--<img src="{{ asset('storage/products/'.$product->image) }}" class="img-thumbnail">-->
+                        <canvas id="preview{{ $loop->index }}" class="img-thumbnail"></canvas>
+
+                        <script>
+                        //キャンバスに画像を描画する
+                        document.addEventListener("DOMContentLoaded",function () {
+                          //画像を読み込んでImageオブジェクトを作成する
+                          let image = new Image();
+                          image.src = "{{ asset('storage/products/'.$product->image) }}";
+                          console.log(image.src);
+                          image.onload = (function () {
+                            //画像ロードが完了してからキャンバスの準備をする
+                            let canvas = document.getElementById("preview{{ $loop->index }}");
+                            let ctx = canvas.getContext('2d');
+                            //キャンバスのサイズを画像サイズに合わせる
+                            canvas.width = image.width;
+                            canvas.height = image.height;
+                            //キャンバスに画像を描画（開始位置0,0）
+                            ctx.drawImage(image, 0, 0);
+                            const text = "sample";
+                            //文字のスタイルを指定
+                            ctx.font = '32px serif';
+                            ctx.fillStyle = '#fff';
+                            //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
+                            ctx.textBaseline = 'center';
+                            ctx.textAlign = 'center';
+                            //座標を指定して文字を描く（座標は画像の中心に）
+                            let x = (canvas.width / 2);
+                            let y = (canvas.height / 2);
+                            ctx.fillText(text, x, y);
+                          });
+                        });
+                        </script>
                         @else
                         <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
                         @endif
@@ -54,4 +86,5 @@
         {{ $products->links() }}
     </div>
 </div>
+
 @endsection
