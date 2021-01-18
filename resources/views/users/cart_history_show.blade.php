@@ -61,10 +61,6 @@
                     <p>クリックでダウンロード</p>
                 </a>
             </div>
-            <form action="{{ url('user/download2') }}" method="post"  >
-                @csrf
-                <input type="submit" >
-            </form>
             <div class="col-md-7 mt-2">
                 <div class="flex-cloumn">
                     <p class="mt-4">{{$product->name}}</p>

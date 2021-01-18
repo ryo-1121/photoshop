@@ -53,7 +53,7 @@ class CartController extends Controller
             ]
         );
 
-        return redirect()->route('products.show', $request->get('id'));
+        return redirect()->route('carts.index');
 
     }
 

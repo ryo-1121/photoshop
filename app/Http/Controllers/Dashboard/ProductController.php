@@ -80,19 +80,18 @@ class ProductController extends Controller
             }
 
           if ($request->file('image') !== null) {
-              $image = $request->file('image')->store('public/products');
-              // TODO
               // 生画像
-            //   $image = $request->file('image')->store('download/products');
-            //   // サンプル画像の生成
-            //   $card_img = Image::make('download/products/'.$image)->crop(300, 300);
-            //   $card_img ->text('sample', 284, 100, function($font) {
-            //     $font->file('fonts/SawarabiGothic-Regular.ttf');
-            //     $font->size(30);
-            //     $font->align('center');
-            //     $font->color('#ffffff');
-            //   });
-            //   $card_img->save('public/products/'.$image);
+              $image = $request->file('image')->store('download/products');
+              // サンプル画像の生成
+              $card_img = Image::make($request->file('image'));
+              $card_img->resize(300, null, function ($constraint) {$constraint->aspectRatio();});
+              $card_img->text('sample', 284, 100, function($font) {
+                $font->file(public_path('fonts/SawarabiGothic-Regular.ttf'));
+                $font->size(30);
+                $font->align('center');
+                $font->color('#ffffff');
+              });
+              $card_img->save(storage_path('app/public/products/'.basename($image)));
 
               $product->image = basename($image);
           } else {
@@ -153,8 +152,6 @@ class ProductController extends Controller
           if ($request->hasFile('image')) {
               $image = $request->file('image')->store('public/products');
               $product->image = basename($image);
-          } else {
-              $product->image = '';
           }
         if ($request->input('carriage') == 'on') {
             $product->carriage_flag = true;
@@ -173,7 +170,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
-    {
+    {dd($product);
           $product->delete();
 
           return redirect()->route('dashboard.products.index');

@@ -34,10 +34,10 @@
                 <div class="col-3">
                     <a href="{{route('products.show', $product)}}">
                         @if ($product->image !== "")
-                        <!--<img src="{{ asset('storage/products/'.$product->image) }}" class="img-thumbnail">-->
-                        <canvas id="preview{{ $loop->index }}" class="img-thumbnail"></canvas>
+                        <img src="{{ asset('storage/products/'.$product->image) }}" class="img-thumbnail">
+{{--                          <canvas id="preview{{ $loop->index }}" class="img-thumbnail"></canvas>
 
-                        <script>
+                      <script>
                         //キャンバスに画像を描画する
                         document.addEventListener("DOMContentLoaded",function () {
                           //画像を読み込んでImageオブジェクトを作成する
@@ -55,7 +55,7 @@
                             ctx.drawImage(image, 0, 0);
                             const text = "sample";
                             //文字のスタイルを指定
-                            ctx.font = '32px serif';
+                            ctx.font = '64px serif';
                             ctx.fillStyle = '#fff';
                             //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
                             ctx.textBaseline = 'center';
@@ -65,8 +65,8 @@
                             let y = (canvas.height / 2);
                             ctx.fillText(text, x, y);
                           });
-                        });
-                        </script>
+                        }); 
+                        </script> --}}
                         @else
                         <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
                         @endif
