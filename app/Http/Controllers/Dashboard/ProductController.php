@@ -85,7 +85,7 @@ class ProductController extends Controller
               // サンプル画像の生成
               $card_img = Image::make($request->file('image'));
               $card_img->resize(300, null, function ($constraint) {$constraint->aspectRatio();});
-              $card_img->text('sample', 284, 100, function($font) {
+              $card_img->text('sample', 150, 100, function($font) {
                 $font->file(public_path('fonts/SawarabiGothic-Regular.ttf'));
                 $font->size(30);
                 $font->align('center');
@@ -150,7 +150,19 @@ class ProductController extends Controller
             $product->recommend_flag = false;
         }
           if ($request->hasFile('image')) {
-              $image = $request->file('image')->store('public/products');
+              // 生画像
+              $image = $request->file('image')->store('download/products');
+              // サンプル画像の生成
+              $card_img = Image::make($request->file('image'));
+              $card_img->resize(300, null, function ($constraint) {$constraint->aspectRatio();});
+              $card_img->text('sample', 150, 150, function($font) {
+                $font->file(public_path('fonts/SawarabiGothic-Regular.ttf'));
+                $font->size(30);
+                $font->align('center');
+                $font->color('#ffffff');
+              });
+              $card_img->save(storage_path('app/public/products/'.basename($image)));
+
               $product->image = basename($image);
           }
         if ($request->input('carriage') == 'on') {

@@ -2,21 +2,67 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-2">
-        @component('components.sidebar', ['categories' => $categories, 'major_category_names' => $major_category_names])
-        @endcomponent
-    </div>
-    <div class="col-9">
-        <div class="container">
-            @if ($category !== null)
-                <a href="/">トップ</a> > <a href="#">{{ $category->major_category_name }}</a> > {{ $category->name }}
-                <h1>{{ $category->name }}の商品一覧{{$products->count()}}件</h1>
+  <div class="container">
+    <!-- HERO SECTION-->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+          <div class="col-lg-6">
+            <h1 class="h2 text-uppercase mb-0">Shop</h1>
+          </div>
+          <div class="col-lg-6 text-lg-right">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                @if ($category !== null)
+                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
+                @else
+                    <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                @endif
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="py-5">
+      <div class="container p-0">
+        <div class="row">
+            
+          <!-- SHOP SIDEBAR-->
+          <div class="col-lg-3 order-2 order-lg-1">
+            <h5 class="text-uppercase mb-4">Categories</h5>
+            @foreach ($major_category_names as $major_category_name)
+                <div class="py-2 px-4 bg-dark text-white mb-3">
+                    <strong class="small text-uppercase font-weight-bold">{{ $major_category_name }}</strong>
+                </div>
+                @foreach ($categories as $category)
+                    @if ($category->major_category_name === $major_category_name)
+                        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
+                            <li class="mb-2">
+                              <a class="reset-anchor" href="{{ route('products.index', ['category' => $category->id]) }}">{{ $category->name }}</a>
+                            </li>
+                        </ul>
+                     @endif
+                @endforeach
+            @endforeach
+          </div>
 
-                <form method="GET" action="{{ route('products.index')}}" class="form-inline">
-                    <input type="hidden" name="category" value="{{ $category->id }}">
-                    並び替え
-                    <select name="sort" onChange="this.form.submit();" class="form-inline ml-2">
+          <!-- SHOP LISTING-->
+          <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+            <div class="row mb-3 align-items-center">
+              <div class="col-lg-6 mb-2 mb-lg-0 text-small text-muted mb-0">
+                  @if ($category !== null)
+                      <a href="/">Home</a> > <a href="#"> {{ $category->major_category_name }} </a> > {{ $category->name }}
+                      <p class="text-small text-muted mb-0">List of {{$products->count()}} {{ $category->name }} results</p>
+                  @endif
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+                  <li class="list-inline-item text-muted mr-3">sort</li>
+                  <li class="list-inline-item">
+                    <select class="selectpicker ml-auto" name="sort" onChange="this.form.submit();" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
                         @foreach ($sort as $key => $value)
                             @if ($sorted == $value)
                                <option value=" {{ $value}}" selected>{{ $key }}</option>
@@ -25,66 +71,39 @@
                             @endif
                         @endforeach
                     </select>
-                </form>
-            @endif
-        </div>
-        <div class="container mt-4">
-            <div class="row w-100">
-                @foreach($products as $product)
-                <div class="col-3">
-                    <a href="{{route('products.show', $product)}}">
-                        @if ($product->image !== "")
-                        <img src="{{ asset('storage/products/'.$product->image) }}" class="img-thumbnail">
-{{--                          <canvas id="preview{{ $loop->index }}" class="img-thumbnail"></canvas>
-
-                      <script>
-                        //キャンバスに画像を描画する
-                        document.addEventListener("DOMContentLoaded",function () {
-                          //画像を読み込んでImageオブジェクトを作成する
-                          let image = new Image();
-                          image.src = "{{ asset('storage/products/'.$product->image) }}";
-                          console.log(image.src);
-                          image.onload = (function () {
-                            //画像ロードが完了してからキャンバスの準備をする
-                            let canvas = document.getElementById("preview{{ $loop->index }}");
-                            let ctx = canvas.getContext('2d');
-                            //キャンバスのサイズを画像サイズに合わせる
-                            canvas.width = image.width;
-                            canvas.height = image.height;
-                            //キャンバスに画像を描画（開始位置0,0）
-                            ctx.drawImage(image, 0, 0);
-                            const text = "sample";
-                            //文字のスタイルを指定
-                            ctx.font = '64px serif';
-                            ctx.fillStyle = '#fff';
-                            //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
-                            ctx.textBaseline = 'center';
-                            ctx.textAlign = 'center';
-                            //座標を指定して文字を描く（座標は画像の中心に）
-                            let x = (canvas.width / 2);
-                            let y = (canvas.height / 2);
-                            ctx.fillText(text, x, y);
-                          });
-                        }); 
-                        </script> --}}
-                        @else
-                        <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
-                        @endif
-                    </a>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="samazon-product-label mt-2">
-                                {{$product->name}}<br>
-                                <label>￥{{$product->price}}</label>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+                  </li>
+                </ul>
+              </div>
             </div>
+            <div class="row">
+                
+              <!-- PRODUCT-->
+              @foreach($products as $product)
+              <div class="col-lg-4 col-sm-6">
+                <div class="text-center">
+                  <div class="mb-3 position-relative">
+                    <div class="badge text-white badge-"></div>
+                        <a class="d-block" href="{{ route('products.show', $product) }}">
+                            @if ($product->image !== "")
+                                <img class="img-fluid w-100" src="{{ asset('storage/products/'.$product->image) }}" alt="...">
+                            @else
+                                <img class="img-fluid w-100" src="{{ asset('img/dummy.png')}}" alt="...">
+                            @endif
+                        </a>
+                  </div>
+                  <h6> <a class="reset-anchor" href="detail.html">{{$product->name}}</a></h6>
+                  <p class="small text-muted">￥{{$product->price}}</p>
+                </div>
+              </div>
+              @endforeach
+            </div>
+
+            <!-- PAGINATION-->
+            {{ $products->links() }}
+          </div>
         </div>
-        {{ $products->links() }}
-    </div>
-</div>
+      </div>
+    </section>
+  </div>
 
 @endsection

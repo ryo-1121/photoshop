@@ -1,54 +1,59 @@
-<nav class="navbar navbar-expand-md navbar-light shadow-sm samazon-header-container">
-    <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="{{asset('img/logo.jpg')}}">
-    </a>
-    <form class="form-inline">
-        <div class="form-group">
-            <input class="form-control samazon-header-search-input">
-        </div>
-        <div class="input-group">
-            <button type="submit" class="btn samazon-header-search-button"><i class="fas fa-search samazon-header-search-icon"></i></button>
-        </div>
-    </form>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
+<!-- navbar-->
+<header class="header bg-white">
+<div class="container px-0 px-lg-3">
+  <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
+      <a class="navbar-brand" href="{{ url('/') }}">
+        <img src="{{ asset('img/logo_eng.png') }}">
+      </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav ml-auto mr-5 mt-2">
-            <!-- Authentication Links -->
-            @guest
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('register') }}"><label>新規登録</label></a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <!-- Link-->
+          <a class="{{Request::is('/')?'active':''}} nav-link" href="{{ url('/') }}">Home</a>
             </li>
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('login') }}"><label>ログイン</label></a>
-            </li>
-            <hr>
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('login') }}"><i class="far fa-heart"></i></a>
-            </li>
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-shopping-cart"></i></a>
-            </li>
-            @else
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('mypage') }}">
-                    <i class="fas fa-user mr-1"></i><label>マイページ</label>
-                </a>
-            </li>
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('mypage.favorite') }}">
-                    <i class="far fa-heart"></i>
-                </a>
-            </li>
-            <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('carts.index') }}">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-            </li>
-            @endguest
-        </ul>
+        <li class=" nav-item">
+            <!-- Link-->
+            <a class="{{Request::is('products')?'active':''}} nav-link" href="{{ route('products.index') }}">Shop</a>
+        </li>
+        <li class=" nav-item">
+            <!-- Link-->
+            <a class="{{Request::is('products.index', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 1]) }}">Person</a>
+        </li>
+        <li class="nav-item">
+          <!-- Link-->
+          <a class="{{Request::is('products', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 2]) }}">Animal</a>
+        </li>
+        <li class="nav-item">
+          <!-- Link-->
+          <a class="{{Request::is('products', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 3]) }}">Food</a>
+        </li>
+        <li class="nav-item">
+          <!-- Link-->
+          <a class="{{Request::is('products', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 4]) }}">Nature</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <!-- Authentication Links -->
+        @guest
+        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}"> <i
+              class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray"></small></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}"> <i
+              class="far fa-heart mr-1"></i><small class="text-gray"> </small></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}"> <i class="fas fa-user-plus mr-1 text-gray"></i>SignUp</a>
+        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}"> <i class="fas fa-user-alt mr-1 text-gray"></i>Login</a>
+          @else
+        <li class="nav-item"><a class="nav-link" href="{{ route('carts.index') }}"> <i
+              class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray"></small></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('mypage.favorite') }}"> <i
+              class="far fa-heart mr-1"></i><small class="text-gray"> </small></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('mypage') }}"> <i class="fas fa-user-alt mr-1 text-gray"></i>MyPage</a>
+          @endguest
+        </li>
+      </ul>
     </div>
-</nav>
+  </nav>
+</div>
+</header>

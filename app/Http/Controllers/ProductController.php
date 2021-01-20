@@ -29,7 +29,7 @@ class ProductController extends Controller
             $products = Product::where('category_id', $request->category)->sortable($sort_query)->paginate(15);
             $category = Category::find($request->category);
         } else {
-            $products = Product::sortable($sort_query)->paginate(15);
+            $products = Product::sortable($sort_query)->paginate(6);
             $category = null;
         }
         

@@ -34,8 +34,6 @@ Route::get('users/mypage/cart_history', 'UserController@cart_history_index')->na
 Route::get('users/mypage/cart_history/{num}', 'UserController@cart_history_show')->name('mypage.cart_history_show');
 Route::get('users/mypage/register_card', 'UserController@register_card')->name('mypage.register_card');
 Route::post('users/mypage/token', 'UserController@token')->name('mypage.token');
-Route::get('sample/download1', 'SampleController@download1');
-Route::post('sample/download2', 'SampleController@download2');
 
 Route::post('products/{product}/reviews', 'ReviewController@store');
 
