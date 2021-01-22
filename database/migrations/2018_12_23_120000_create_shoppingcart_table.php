@@ -16,6 +16,10 @@ class CreateShoppingcartTable extends Migration
             $table->string('instance');
             $table->longText('content');
             $table->integer('number')->nullable();
+            $table->boolean('buy_flag')->default(false);
+            $table->string('code')->default("");
+            $table->integer('price_total')->unsigned()->default(0);
+            $table->integer('qty')->unsigned()->default(0);
             $table->nullableTimestamps();
 
             $table->primary(['identifier', 'instance']);

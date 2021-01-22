@@ -20,6 +20,9 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->integer('price')->unsigned();
             $table->integer('category_id')->unsigned();
+            $table->string('image')->default('');
+            $table->boolean('recommend_flag')->default(false);
+            $table->boolean('carriage_flag')->default(false);
         });
     }
 

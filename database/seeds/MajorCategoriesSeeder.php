@@ -13,7 +13,7 @@ class MajorCategoriesSeeder extends Seeder
     public function run()
     {
           $major_category_names = [
-              '本', 'コンピュータ', 'ディスプレイ'
+              'Photo'
           ];
  
           foreach ($major_category_names as $major_category_name) {

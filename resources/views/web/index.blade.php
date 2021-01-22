@@ -23,9 +23,9 @@
       </header>
       <div class="row">
         <div class="col-md-4 mb-4 mb-md-0"><a class="category-item" href="{{ route('products.index', ['category' => 1]) }}"><img class="img-fluid" src="{{ asset('img/family.jpg')}}" alt=""><strong class="category-item-title">Person</strong></a></div>
-        <div class="col-md-4 mb-4 mb-md-0"><a class="category-item mb-4" href=href="{{ route('products.index', ['category' => 2]) }}"><img class="img-fluid" src="{{ asset('img/lion.jpg')}}" alt=""><strong class="category-item-title">Animal</strong></a>
-        <a class="category-item" href=href="{{ route('products.index', ['category' => 3]) }}"><img class="img-fluid" src="{{ asset('img/lake.jpg')}}" alt=""><strong class="category-item-title">Nature</strong></a></div>
-        <div class="col-md-4"><a class="category-item" href=href="{{ route('products.index', ['category' => 4]) }}"><img class="img-fluid" src="{{ asset('img/pizza1.jpg')}}" alt=""><strong class="category-item-title">Food</strong></a></div>
+        <div class="col-md-4 mb-4 mb-md-0"><a class="category-item mb-4" href="{{ route('products.index', ['category' => 2]) }}"><img class="img-fluid" src="{{ asset('img/lion.jpg')}}" alt=""><strong class="category-item-title">Animal</strong></a>
+        <a class="category-item" href="{{ route('products.index', ['category' => 3]) }}"><img class="img-fluid" src="{{ asset('img/lake.jpg')}}" alt=""><strong class="category-item-title">Nature</strong></a></div>
+        <div class="col-md-4"><a class="category-item" href="{{ route('products.index', ['category' => 4]) }}"><img class="img-fluid" src="{{ asset('img/pizza1.jpg')}}" alt=""><strong class="category-item-title">Food</strong></a></div>
       </div>
     </section>
     
