@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <span>
-                <a href="{{ route('mypage') }}">マイページ</a> > お届け先変更
+                <a href="{{ route('mypage') }}">MyPage</a> > お届け先変更
             </span>
             <h3 class="mt-3 mb-3">お届け先変更</h3>
 
@@ -69,7 +69,7 @@
                 <hr>
 
                 <div class="form-group d-flex justify-content-end">
-                    <button type="submit" class="btn samazon-submit-button w-25">
+                    <button type="submit" class="btn samazon-submit-button w-25 btn-dark btn-block">
                         保存する
                     </button>
                 </div>

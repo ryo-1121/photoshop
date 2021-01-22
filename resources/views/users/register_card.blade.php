@@ -19,14 +19,21 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/samazon.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.default.css') }}" id="theme-stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
     <script src="https://kit.fontawesome.com/3723f06c66.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    @component('components.header')
-    @endcomponent
-    <main class="py-4 mb-5">
-
+@component('components.header')
+@endcomponent
+<main class="py-4 mb-5">
+    <div class="container">
+        <div class="col-md-5">
+            <span>
+                <a href="{{ route('mypage') }}">MyPage</a> > 会員情報の編集
+            </span>
+        </div>
         <div class="d-flex justify-content-center">
             <div class="container w-50">
             @if(count($card) > 1)
@@ -41,14 +48,15 @@
                     @if (empty($card))
                     <script type="text/javascript" src="https://checkout.pay.jp/" class="payjp-button" data-key="{{ ENV('PAYJP_PUBLIC_KEY') }}" data-on-created="onCreated" data-text="カードを登録する" data-submit-text="カードを登録する"></script>
                     @else
-                    <script type="text/javascript" src="https://checkout.pay.jp/" class="payjp-button" data-key="{{ ENV('PAYJP_PUBLIC_KEY') }}" data-on-created="onCreated" data-text="カードを更新する" data-submit-text="カードを更新する"></script>
+                    <script type="text/javascript" src="https://checkout.pay.jp/" class="payjp-button" style="background-color: black" data-key="{{ ENV('PAYJP_PUBLIC_KEY') }}" data-on-created="onCreated" data-text="カードを更新する" data-submit-text="カードを更新する"></script>
                     @endif
                 </form>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    @component('components.footer')
-    @endcomponent
+@component('components.footer')
+@endcomponent
 </body>
 </html>

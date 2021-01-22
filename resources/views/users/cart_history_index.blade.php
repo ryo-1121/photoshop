@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <span>
-                <a href="{{ route('mypage') }}">マイページ</a> > お届け先変更
+                <a href="{{ route('mypage') }}">MyPage</a> > お届け先変更
             </span>
 
             <div class="container mt-4">

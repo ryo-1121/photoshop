@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <span>
-                <a href="{{ route('mypage') }}">マイページ</a> > 会員情報の編集
+                <a href="{{ route('mypage') }}">MyPage</a> > 会員情報の編集
             </span>
 
             <h1 class="mt-3 mb-3">会員情報の編集</h1>
@@ -23,12 +23,12 @@
                         </span>
                     </div>
                     <div class="collapse show userName">
-                        <h1 class="samazon-edit-user-info-value">{{ $user->name }}</h1>
+                        <h2 class="samazon-edit-user-info-value">{{ $user->name }}</h2>
                     </div>
                     <div class="collapse editUserName">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus placeholder="侍 太郎">
 
-                        <button type="submit" class="btn samazon-submit-button mt-3 w-25">
+                        <button type="submit" class="btn btn-dark btn-block mt-3 w-25">
                             保存
                         </button>
 
@@ -50,12 +50,12 @@
                         </span>
                     </div>
                     <div class="collapse show userMail">
-                        <h1 class="samazon-edit-user-info-value">{{ $user->email }}</h1>
+                        <h2 class="samazon-edit-user-info-value">{{ $user->email }}</h2>
                     </div>
                     <div class="collapse editUserMail">
                         <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" autofocus placeholder="samurai@samurai.com">
 
-                        <button type="submit" class="btn samazon-submit-button mt-3 w-25">
+                        <button type="submit" class="btn btn-dark btn-block mt-3 w-25">
                             保存
                         </button>
 
@@ -77,12 +77,12 @@
                         </span>
                     </div>
                     <div class="collapse show userPhone">
-                        <h1 class="samazon-edit-user-info-value">{{ $user->phone }}</h1>
+                        <h2 class="samazon-edit-user-info-value">{{ $user->phone }}</h2>
                     </div>
                     <div class="collapse editUserPhone">
                         <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone }}" required autocomplete="phone" autofocus placeholder="XXX-XXXX-XXXX">
 
-                        <button type="submit" class="btn samazon-submit-button mt-3 w-25">
+                        <button type="submit" class="btn btn-dark btn-block mt-3 w-25">
                             保存
                         </button>
 
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn dashboard-delete-link" data-dismiss="modal">キャンセル</button>
-                                    <button type="submit" class="btn samazon-delete-submit-button text-white">退会する</button>
+                                    <button type="submit" class="btn btn-dark btn-block">退会する</button>
                                 </div>
                             </div>
                         </div>

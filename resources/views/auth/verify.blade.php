@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <h3 class="text-center">会員登録ありがとうございます！</h3>
+            <h3 class="text-center">Thank you for registering！</h3>
 
             <p class="text-center">
                 現在、仮会員の状態です。
@@ -18,7 +18,7 @@
                 メール本文内のURLをクリックすると本会員登録が完了となります。
             </p>
             <div class="text-center">
-                <a href="/" class="btn samazon-submit-button w-50 text-white">トップページへ</a>
+                <a href="/" class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">トップページへ</a>
             </div>
         </div>
     </div>

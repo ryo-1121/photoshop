@@ -2,96 +2,93 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <h3 class="mt-3 mb-3">新規会員登録</h3>
-
-            <hr>
-
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-
-                <div class="form-group row">
-                    <label for="name" class="col-md-5 col-form-label text-md-left">氏名<span class="ml-1 samazon-require-input-label"><span class="samazon-require-input-label-text">必須</span></span></label>
-
-                    <div class="col-md-7">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror samazon-login-input" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="侍 太郎">
-
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>氏名を入力してください</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="email" class="col-md-5 col-form-label text-md-left">メールアドレス<span class="ml-1 samazon-require-input-label"><span class="samazon-require-input-label-text">必須</span></span></label>
-
-                    <div class="col-md-7">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror samazon-login-input" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="samurai@samurai.com">
-
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>メールアドレスを入力してください</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-5 col-form-label text-md-left">郵便番号<span class="ml-1 samazon-require-input-label"><span class="samazon-require-input-label-text">必須</span></span></label>
-
-                    <div class="col-md-7">
-                        <input type="text" class="form-control @error('postal_code') is-invalid @enderror samazon-login-input" name="postal_code" required placeholder="150-0043">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-5 col-form-label text-md-left">住所<span class="ml-1 samazon-require-input-label"><span class="samazon-require-input-label-text">必須</span></span></label>
-
-                    <div class="col-md-7">
-                        <input type="text" class="form-control @error('address') is-invalid @enderror samazon-login-input" name="address" required placeholder="東京都渋谷区道玄坂２丁目１１−１">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-5 col-form-label text-md-left">電話番号<span class="ml-1 samazon-require-input-label"><span class="samazon-require-input-label-text">必須</span></span></label>
-
-                    <div class="col-md-7">
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror samazon-login-input" name="phone" required placeholder="03-5790-9039">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-5 col-form-label text-md-left">パスワード<span class="ml-1 samazon-require-input-label"><span class="samazon-require-input-label-text">必須</span></span></label>
-
-                    <div class="col-md-7">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror samazon-login-input" name="password" required autocomplete="new-password">
-
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password-confirm" class="col-md-5 col-form-label text-md-left"></label>
-
-                    <div class="col-md-7">
-                        <input id="password-confirm" type="password" class="form-control samazon-login-input" name="password_confirmation" required autocomplete="new-password">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn samazon-submit-button w-100">
-                        アカウント作成
-                    </button>
-                </div>
-            </form>
+    <!-- HERO SECTION-->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+          <div class="col-lg-6">
+            <h1 class="h2 text-uppercase mb-0">SignUp</h1>
+          </div>
+          <div class="col-lg-6 text-lg-right">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">SignUp</li>
+              </ol>
+            </nav>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
+    <section class="py-5">
+      <!-- BILLING ADDRESS-->
+      <h2 class="h5 text-uppercase mb-4">Member information</h2>
+      <div class="row">
+        <div class="col-lg-8">
+          <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="row">
+                
+              <div class="col-lg-8 form-group">
+                <label for="name" class="text-small text-uppercase">Name</label>
+                <input id="name" class="form-control form-control-lg @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Enter your name">
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>氏名を入力してください</strong>
+                </span>
+                @enderror
+              </div>
+              
+              <div class="col-lg-8 form-group">
+                <label class="text-small text-uppercase" for="email">Email address</label>
+                <input id="email" class="form-control form-control-lg" id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="e.g. Jason@example.com">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>メールアドレスを入力してください</strong>
+                    </span>
+                    @enderror
+              </div>
+              
+              <div class="col-lg-8 form-group">
+                <label class="text-small text-uppercase" for="phone">Phone number</label>
+                <input class="form-control form-control-lg" id="phone" type="tel" name="phone" required placeholder="e.g. +08 245354745">
+              </div>
+              
+              <div class="col-lg-8 form-group">
+                <label class="text-small text-uppercase" for="address">Postal code</label>
+                <input class="form-control form-control-lg" id="address" type="text" name="postal_code" required  placeholder="e.g. 123-4567">
+              </div>
+              
+              <div class="col-lg-12 form-group">
+                <label class="text-small text-uppercase" for="address">Address</label>
+                <input class="form-control form-control-lg" id="addressalt" type="text" name="address" required placeholder="Apartment, Suite, Unit, etc (optional)">
+              </div>
+              
+              <div class="col-lg-8 form-group">
+                <label class="text-small text-uppercase" for="city">Password</label>
+                <input class="form-control form-control-lg" id="password" type="password" name="password" required autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+              </div>
+              
+              <div class="col-lg-8 form-group">
+                <label for="password-confirm" class="text-small text-uppercase" for="state">Confirmation password</label>
+                <input class="form-control form-control-lg" id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
+              </div>
+              
+              <div class="col-lg-6 form-group">
+              </div>
+              
+              <div class="col-lg-12 form-group">
+                <button class="btn btn-dark" type="submit">Create account</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
 </div>
 @endsection
