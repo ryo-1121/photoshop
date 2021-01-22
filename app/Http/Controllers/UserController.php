@@ -145,7 +145,7 @@ class UserController extends Controller
                                          'updated_at' => $cart_info->updated_at
                                      ]
                                  );
-
+dd($cart_info);
         return view('users.cart_history_show', compact('cart_contents', 'cart_info'));
     }
 
