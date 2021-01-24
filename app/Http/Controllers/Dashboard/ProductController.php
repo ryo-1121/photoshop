@@ -85,7 +85,9 @@ class ProductController extends Controller
               // サンプル画像の生成
               $card_img = Image::make($request->file('image'));
               $card_img->resize(300, null, function ($constraint) {$constraint->aspectRatio();});
-              $card_img->text('sample', 150, 100, function($font) {
+              $height = $card_img->height() / 2;
+              $width = $card_img->width() / 2;
+              $card_img->text('sample', $width, $height, function($font) {
                 $font->file(public_path('fonts/SawarabiGothic-Regular.ttf'));
                 $font->size(30);
                 $font->align('center');
@@ -182,7 +184,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
-    {dd($product);
+    {
           $product->delete();
 
           return redirect()->route('dashboard.products.index');

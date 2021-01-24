@@ -14,8 +14,8 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
                 <li class="breadcrumb-item"><a href="{{ asset('/') }}">Home</a></li>
-                @if ($category !== null)
-                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
+                @if ($selectCategory !== null)
+                    <li class="breadcrumb-item active" aria-current="page">{{ $selectCategory->name }}</li>
                 @else
                     <li class="breadcrumb-item active" aria-current="page">Shop</li>
                 @endif
@@ -25,11 +25,11 @@
         </div>
       </div>
     </section>
-    
+
     <section class="py-5">
       <div class="container p-0">
         <div class="row">
-            
+
           <!-- SHOP SIDEBAR-->
           <div class="col-lg-3 order-2 order-lg-1">
             <h5 class="text-uppercase mb-4">Categories</h5>
@@ -53,30 +53,33 @@
           <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
             <div class="row mb-3 align-items-center">
               <div class="col-lg-6 mb-2 mb-lg-0 text-small text-muted mb-0">
-                  @if ($category !== null)
-                      <a href="/">Home</a> > <a href="#"> {{ $category->major_category_name }} </a> > {{ $category->name }}
-                      <p class="text-small text-muted mb-0">List of {{$products->count()}} {{ $category->name }} results</p>
+                  @if ($selectCategory !== null)
+                      <a href="/">Home</a> > <a href="#"> {{ $selectCategory->major_category_name }} </a> > {{ $selectCategory->name }}
+                      <p class="text-small text-muted mb-0">List of {{$products->count()}} {{ $selectCategory->name }} results</p>
                   @endif
               </div>
               <div class="col-lg-6">
                 <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
                   <li class="list-inline-item text-muted mr-3">sort</li>
                   <li class="list-inline-item">
-                    <select class="selectpicker ml-auto" name="sort" onChange="this.form.submit();" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
-                        @foreach ($sort as $key => $value)
-                            @if ($sorted == $value)
-                               <option value=" {{ $value}}" selected>{{ $key }}</option>
-                            @else
-                               <option value=" {{ $value}}">{{ $key }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    <form method="GET" action="{{ route('products.index')}}" class="form-inline">
+                      <input type="hidden" name="category" value="{{ $selectCategory->id }}">
+                      <select class="bootstrap-select ml-auto" name="sort" onChange="this.form.submit();" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
+                          @foreach ($sort as $key => $value)
+                              @if ($sorted == $value)
+                                 <option value=" {{ $value}}" selected>{{ $key }}</option>
+                              @else
+                                 <option value=" {{ $value}}">{{ $key }}</option>
+                              @endif
+                          @endforeach
+                      </select>
+                    </form>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="row">
-                
+
               <!-- PRODUCT-->
               @foreach($products as $product)
               <div class="col-lg-4 col-sm-6">
@@ -99,7 +102,7 @@
             </div>
 
             <!-- PAGINATION-->
-            {{ $products->links() }}
+            {{ $products->appends(['category' => request()->category])->links() }}
           </div>
         </div>
       </div>

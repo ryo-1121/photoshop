@@ -30,16 +30,16 @@
   <!-- ↑は既存 ↓は追加-->
 
   <!-- Bootstrap CSS-->
-  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
   <!-- Lightbox-->
-  <link rel="stylesheet" href="vendor/lightbox2/css/lightbox.min.css">
+  <link rel="stylesheet" href="{{ asset('vendor/lightbox2/css/lightbox.min.css') }}">
   <!-- Range slider-->
-  <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+  <link rel="stylesheet" href="{{ asset('vendor/nouislider/nouislider.min.css') }}">
   <!-- Bootstrap select-->
-  <link rel="stylesheet" href="vendor/bootstrap-select/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="{{ asset('vendor/bootstrap-select/css/bootstrap-select.min.css') }}">
   <!-- Owl Carousel-->
-  <link rel="stylesheet" href="vendor/owl.carousel2/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendor/owl.carousel2/assets/owl.theme.default.css">
+  <link rel="stylesheet" href="{{ asset('vendor/owl.carousel2/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/owl.carousel2/assets/owl.theme.default.css') }}">
   <!-- Google fonts-->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
@@ -57,7 +57,7 @@
     @component('components.header')
     @endcomponent
 
-    <main class="py-4 mb-5">
+    <main class="">
       @yield('content')
     </main>
 

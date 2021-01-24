@@ -16,23 +16,23 @@
             </li>
         <li class=" nav-item">
             <!-- Link-->
-            <a class="{{Request::is('products')?'active':''}} nav-link" href="{{ route('products.index') }}">Shop</a>
+            <a class="{{ !request()->category ?'active':''}} nav-link" href="{{ route('products.index') }}">Shop</a>
         </li>
         <li class=" nav-item">
             <!-- Link-->
-            <a class="{{Request::is('products.index', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 1]) }}">Person</a>
+            <a class="{{ request()->category  == 1 ?'active':''}} nav-link" href="{{ route('products.index', ['category' => 1]) }}">Person</a>
         </li>
         <li class="nav-item">
           <!-- Link-->
-          <a class="{{Request::is('products', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 2]) }}">Animal</a>
+          <a class="{{ request()->category  == 2 ?'active':''}} nav-link" href="{{ route('products.index', ['category' => 2]) }}">Animal</a>
         </li>
         <li class="nav-item">
           <!-- Link-->
-          <a class="{{Request::is('products', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 3]) }}">Food</a>
+          <a class="{{ request()->category  == 3 ?'active':''}} nav-link" href="{{ route('products.index', ['category' => 3]) }}">Food</a>
         </li>
         <li class="nav-item">
           <!-- Link-->
-          <a class="{{Request::is('products', ['category' => 1])?'active':''}} nav-link" href="{{ route('products.index', ['category' => 4]) }}">Nature</a>
+          <a class="{{request()->category  == 4 ?'active':''}} nav-link" href="{{ route('products.index', ['category' => 4]) }}">Nature</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">

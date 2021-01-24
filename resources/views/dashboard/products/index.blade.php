@@ -66,13 +66,13 @@
                     <a href="/dashboard/products/{{ $product->id }}/edit" class="dashboard-edit-link">編集</a>
                 </td>
                 <td>
-                    <a href="/dashboard/products/{{ $product->id }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dashboard-delete-link">
+                    <a onclick="event.preventDefault(); document.getElementById('form_{{ $product->id }}').submit();" class="dashboard-delete-link" href="#">
                         削除
                     </a>
-
-                    <form id="logout-form" action="/dashboard/products/{{ $product->id }}" method="POST" style="display: none;">
+                    <form id="form_{{ $product->id }}" action="/dashboard/products/{{ $product->id }}" method="POST" style="display: none;">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
+
                     </form>
                 </td>
             </tr>

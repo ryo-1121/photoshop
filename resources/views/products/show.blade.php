@@ -7,25 +7,23 @@
     <div class="container">
       <div class="row mb-5">
         <div class="col-lg-6">
-  
+
           <!-- PRODUCT SLIDER-->
           <div class="row m-sm-0">
             <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
             </div>
             <div class="col-sm-10 order-1 order-sm-2">
-              <div class="owl-carousel product-slider" data-slider-id="1">
-                  <a class="d-block" href="{{ asset('storage/products/'.$product->image) }}" data-lightbox="product" title="Product item 1">
+              <div class="" data-slider-id="1">
                     @if ($product->image !== null)
                     <img class="img-fluid" src="{{ asset('storage/products/'.$product->image) }}" alt="...">
                     @else
                     <img src="{{ asset('img/dummy.png')}}" class="w-100 img-fuild">
                     @endif
-                  </a>
               </div>
             </div>
           </div>
         </div>
-  
+
         <!-- PRODUCT DETAILS-->
         <div class="col-lg-6">
           <h1>{{$product->name}}</h1>
@@ -50,17 +48,17 @@
                 </div>
               </div>
                 <div class="col-sm-3 pl-sm-0">
-                  <button type="submit" class="btn btn-dark btn-block">Add to cart</button>
+                  <button type="submit" class="btn btn-dark btn-block" style="width: 130px; height: 47px;">Add to cart</button>
                 </div>
             </div>
             @if($product->isFavoritedBy(Auth::user()))
               <a href="/products/{{ $product->id }}/favorite" class="btn btn-link text-dark p-0 mb-4">
-                  <i class="far fa-heart mr-2"></i>
+                  <i class="fa fa-heart mr-2"></i>
                   Remove to wish list
               </a>
             @else
               <a href="/products/{{ $product->id }}/favorite" class="btn btn-link text-dark p-0 mb-4">
-                  <i class="far fa-heart mr-2"></i>
+                  <i class="fa fa-heart-o mr-2"></i>
                   Add to wish list
               </a>
             @endif
@@ -68,7 +66,7 @@
           @endauth
         </div>
       </div>
-      
+
       <!-- DETAILS TABS-->
       <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
         <li class="nav-item"><a class="nav-link active" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
@@ -126,5 +124,7 @@
 <script src="{{ asset('vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('vendor/owl.carousel2/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
+{{--
 <script src="{{ asset('js/front.js') }}"></script>
+--}}
 @endsection
