@@ -19,6 +19,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/samazon.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.default.css') }}" id="theme-stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 
     <script src="https://kit.fontawesome.com/3723f06c66.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

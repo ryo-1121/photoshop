@@ -41,7 +41,7 @@
 
               <div class="col-lg-8 form-group">
                 <label class="text-small text-uppercase" for="email">Email address</label>
-                <input id="email" class="form-control form-control-lg" id="email" type="email" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="e.g. Jason@example.com">
+                <input id="email" class="form-control form-control-lg @error('email') is-invalid @enderror samazon-login-input" type="email" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="e.g. Jason@example.com">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>メールアドレスを入力してください</strong>
@@ -66,7 +66,7 @@
 
               <div class="col-lg-8 form-group">
                 <label class="text-small text-uppercase" for="city">Password</label>
-                <input class="form-control form-control-lg" id="password" type="password" name="password" autocomplete="new-password">
+                <input class="form-control form-control-lg @error('password') is-invalid @enderror samazon-login-input" id="password" type="password" name="password" autocomplete="new-password">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

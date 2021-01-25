@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="mt-3 btn samazon-submit-button w-100">
+                    <button type="submit" class="btn btn-dark btn-sm btn-block">
                         ログイン
                     </button>
                 </div>

@@ -12,11 +12,11 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <!-- Link-->
-          <a class="{{Request::is('/')?'active':''}} nav-link" href="{{ url('/') }}">Home</a>
+          <a class="{{ Request::is('/')?'active':''}} nav-link" href="{{ url('/') }}">Home</a>
             </li>
         <li class=" nav-item">
             <!-- Link-->
-            <a class="{{ !request()->category ?'active':''}} nav-link" href="{{ route('products.index') }}">Shop</a>
+            <a class="{{ Request::is('products')?'active':''}} nav-link" href="{{ route('products.index') }}">Shop</a>
         </li>
         <li class=" nav-item">
             <!-- Link-->

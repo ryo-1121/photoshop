@@ -59,6 +59,7 @@
                   @endif
               </div>
               <div class="col-lg-6">
+                @if ($selectCategory !== null)
                 <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
                   <li class="list-inline-item text-muted mr-3">sort</li>
                   <li class="list-inline-item">
@@ -76,6 +77,7 @@
                     </form>
                   </li>
                 </ul>
+                @endif
               </div>
             </div>
             <div class="row">
