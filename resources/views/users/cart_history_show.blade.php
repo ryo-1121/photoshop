@@ -56,9 +56,9 @@
         <div class="row">
             @foreach ($cart_contents as $product)
             <div class="col-md-5 mt-2">
-                <a href="{{ asset('storage/products/'.$product->image) }}" class="ml-4" download>
-                    <img src="{{ asset('storage/products/'.$product->image) }}" class="img-fuild w-75">
-                    <p>クリックでダウンロード</p>
+                <a href="{{ asset('storage/products/'.$product->options->image) }}" class="ml-4" download>
+                    <img src="{{ asset('storage/products/'.$product->options->image) }}" class="img-fuild w-75">
+                    <p class="ml-4 small text-muted small text-uppercase mb-1">クリックでダウンロード</p>
                 </a>
             </div>
             <div class="col-md-7 mt-2">

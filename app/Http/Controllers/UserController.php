@@ -132,6 +132,8 @@ class UserController extends Controller
         Cart::instance($user_id)->store($num);
 
         Cart::destroy();
+        
+        $cart = DB::table('shoppingcart')->where('instance', Auth::user()->id)->get();
 
         DB::table('shoppingcart')->where('instance', $user_id)
                                  ->where('number', null)
